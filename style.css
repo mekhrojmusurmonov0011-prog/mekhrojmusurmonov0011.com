@@ -1,0 +1,473 @@
+
+/* ─── VARIABLES ─── */
+:root {
+  --bg:      #0a0a0a;
+  --surface: #111111;
+  --border:  #222222;
+  --accent:  #e8ff47;
+  --text:    #f0f0f0;
+  --muted:   #666666;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── BASE ─── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* NOISE TEXTURE */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* GRID BACKGROUND */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); }
+
+/* ─── LAYOUT ─── */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── HEADER / HERO ─── */
+header {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+header .container {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* Small tag above name */
+header p:first-of-type,
+.hero-tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 12px;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease both;
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(64px, 12vw, 140px);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+/* Subtitle under name */
+header > .container > p,
+.hero-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+/* ─── NAV ─── */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  margin-right: -1px;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+nav a:hover {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+  z-index: 1;
+}
+
+/* ─── SECTIONS ─── */
+section {
+  padding: 100px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+/* Section label e.g. "01 — About" */
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 48px;
+  color: var(--text);
+}
+
+/* ─── ABOUT ─── */
+#about .text-block {
+  max-width: 600px;
+}
+
+#about p {
+  color: #aaaaaa;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+#about p strong {
+  color: var(--text);
+}
+
+/* ─── SKILLS ─── */
+#skills ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+#skills li {
+  background: var(--bg);
+  padding: 24px 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: default;
+}
+
+#skills li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+#skills li:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+#skills li:hover::before {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+/* ─── PROJECTS ─── */
+#projects > .container > div,
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+article {
+  background: var(--bg);
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+  transition: background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+article::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--border);
+  transition: background 0.2s;
+}
+
+article:hover {
+  background: var(--surface);
+}
+
+article:hover::before {
+  background: var(--accent);
+}
+
+article h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+article p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ─── LINKS ─── */
+#links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+#links li a {
+  background: var(--bg);
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s;
+  text-decoration: none;
+  color: var(--text);
+}
+
+#links li a:hover {
+  background: var(--surface);
+}
+
+/* Platform name e.g. "YouTube" */
+#links li a span:first-child {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  width: 100px;
+  flex-shrink: 0;
+}
+
+/* Handle e.g. "@yourusername" */
+#links li a span:nth-child(2) {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  flex: 1;
+}
+
+/* Arrow ↗ */
+#links li a span:last-child {
+  font-size: 18px;
+  color: var(--muted);
+  transition: all 0.2s;
+}
+
+#links li a:hover span:last-child {
+  transform: translate(4px, -4px);
+  color: var(--accent);
+}
+
+/* ─── CONTACT ─── */
+#contact .contact-card {
+  border: 1px solid var(--border);
+  padding: 48px;
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+}
+
+#contact .contact-card::before {
+  content: 'GET IN TOUCH';
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Syne', sans-serif;
+  font-size: 80px;
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--border);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+#contact p {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+#contact a {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(20px, 4vw, 36px);
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  display: block;
+  transition: color 0.2s;
+}
+
+#contact a:hover {
+  color: var(--accent);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 32px 0;
+  position: relative;
+  z-index: 1;
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer p {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── SCROLL REVEAL (toggled by JS) ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  .container { padding: 0 20px; }
+  nav a { padding: 8px 14px; font-size: 11px; }
+  article { grid-template-columns: 1fr; }
+  #contact .contact-card { padding: 28px; }
+  #contact .contact-card::before { display: none; }
+  footer .container { flex-direction: column; gap: 12px; text-align: center; }
+}

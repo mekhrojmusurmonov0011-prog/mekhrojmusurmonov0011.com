@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap');
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── VARIABLES ── */
+:root {
+  --bg:      #f5f2eb;
+  --surface: #ece8df;
+  --ink:     #1a1a1a;
+  --muted:   #888880;
+  --accent:  #c0392b;
+  --border:  #d4cfc4;
+  --serif:   'Space Grotesk', sans-serif;
+  --mono:    'Fira Code', monospace;
+}
+
+/* ── BASE ── */
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+a:hover { border-bottom-color: var(--accent); }
+
+/* ── HEADER ── */
+header#top {
+  min-height: 50vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border-bottom: 2px solid var(--ink);
+  padding: 60px 24px;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 18px,
+      var(--border) 18px,
+      var(--border) 19px
+    );
+}
+
+header#top h1 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 9vw, 100px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+header#top h1::after {
+  content: '';
+  display: block;
+  height: 5px;
+  width: 40%;
+  background: var(--accent);
+  margin: 16px auto 0;
+}
+
+.page-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 12px;
+  margin-bottom: 20px;
+}
+
+/* ── NAV ── */
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+nav > *:not(a) { display: none; }
+
+nav a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 9px 18px;
+  margin-right: -1px;
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+nav a:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-bottom-color: var(--ink);
+}
+
+/* ── H2 ── */
+body {
+  counter-reset: section; /* reset counter once */
+}
+
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 40px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+h2::before {
+  counter-increment: section;
+  content: counter(section, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  border: 1px solid var(--accent);
+  padding: 2px 8px;
+  flex-shrink: 0;
+}
+
+/* ── IDEAS SECTION ── */
+section#ideas {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+section#ideas > p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.85;
+  margin-bottom: 32px;
+  max-width: 580px;
+}
+
+section#ideas strong,
+section#ideas p b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ── FEATURE CARDS ── */
+section#ideas ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+section#ideas li {
+  background: var(--surface);
+  padding: 28px 24px 28px 48px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.6;
+  transition: background 0.2s;
+  position: relative;
+}
+
+section#ideas li:hover { background: var(--bg); }
+
+section#ideas li:nth-child(1)::before { content: '01'; }
+section#ideas li:nth-child(2)::before { content: '02'; }
+section#ideas li:nth-child(3)::before { content: '03'; }
+section#ideas li:nth-child(4)::before { content: '04'; }
+
+section#ideas li::before {
+  position: absolute;
+  left: 20px;
+  top: 28px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* ── STATUS BLOCK ── */
+.status-block {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  padding: 24px 28px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+.status-text {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.status-text strong {
+  color: var(--ink);
+  display: block;
+  font-size: 14px;
+  margin-bottom: 2px;
+  letter-spacing: 0;
+  text-transform: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+
+/* ── FOOTER ── */
+footer#footer {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+}
+
+footer#footer p {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+footer#footer a {
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: none;
+}
+
+footer#footer a:hover { border-bottom: 1px solid var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  section#ideas { padding: 56px 20px; }
+  nav a { padding: 8px 12px; font-size: 10px; }
+  footer#footer { flex-direction: column; gap: 10px; text-align: center; }
+}
